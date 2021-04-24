@@ -255,7 +255,6 @@ class SJF(object):
     def click(self):
         try:
             Number_Of_Processes = int(self.textEdit_3.toPlainText())
-
             value_of_textedit_2 = self.textEdit_2.toPlainText()
             Arrival_Time_List = value_of_textedit_2.splitlines()
             
@@ -300,7 +299,7 @@ class SJF(object):
         except ValueError:
             root = tkinter.Tk()
             root.withdraw()
-            messagebox.showerror("Error", "Error in input!!")
+            messagebox.showerror("Error", "Input Error")
             
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -556,7 +555,7 @@ class rr(object):
         except:
             root = tkinter.Tk()
             root.withdraw()
-            messagebox.showerror("Error", "Error in input!!")
+            messagebox.showerror("Error", "Input Error")
             
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -689,6 +688,7 @@ class FCFS(object):
     def fcfs(self,Processes_Names,Burst_Time_List,Arrival_Time_List,Number_Of_Processes):
         turn_around = []
         ####
+ 
         self.fig_init(Processes_Names, sum(Burst_Time_List) + 20 + max(Arrival_Time_List))
         # sorrrrrrt
         self.sort(Arrival_Time_List,Processes_Names,Burst_Time_List)
@@ -706,6 +706,7 @@ class FCFS(object):
         waiting_time = []
         for k in range(len(turn_around)):
             waiting_time.append(turn_around[k] - Burst_Time_List[k])
+            print("Waiting time is ", waiting_time[k])
 
         average_waiting = sum(waiting_time) / len(Processes_Names)
 
@@ -722,6 +723,7 @@ class FCFS(object):
 
             value_of_textedit_3 = self.textEdit_3.toPlainText()
             Burst_Time_List = value_of_textedit_3.splitlines()
+            
 
             Processes_Names = []
             i = 0
@@ -761,12 +763,12 @@ class FCFS(object):
             # Number_Of_Processes
 
             # Put your code here
-            if (x != 1):
+            if (x != 1): 
                 self.fcfs(Processes_Names, Burst_Time_List, Arrival_Time_List, Number_Of_Processes)
-        except :
+        except:
             root = tkinter.Tk()
             root.withdraw()
-            messagebox.showerror("Error", "Error in input!!")
+            messagebox.showerror("Error", "Input Error")
             
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -1158,7 +1160,7 @@ class priority(object):
         except:
             root = tkinter.Tk()
             root.withdraw()
-            messagebox.showerror("Error", "Error in input!!")
+            messagebox.showerror("Error", "Input Error")
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
