@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>927</width>
-    <height>814</height>
+    <height>848</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -63,12 +63,12 @@
      <pixmap>bigger.png</pixmap>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_3">
+   <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>340</x>
       <y>330</y>
-      <width>281</width>
+      <width>271</width>
       <height>91</height>
      </rect>
     </property>
@@ -79,49 +79,49 @@
      <string>FCFS Scheduler</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_4">
+   <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>440</y>
-      <width>281</width>
+      <x>340</x>
+      <y>580</y>
+      <width>271</width>
       <height>91</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;Montserrat&quot;; outline-color: black;  font-weight: bold</string>
-    </property>
-    <property name="text">
-     <string>SJF Scheduler</string>
-    </property>
-   </widget>
-   <widget class="QToolButton" name="toolButton_5">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>550</y>
-      <width>281</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;Montserrat&quot;;  font-weight: bold</string>
+     <string notr="true">font: 12pt &quot;Montserrat&quot;; outline-color: blue; font-weight: bold</string>
     </property>
     <property name="text">
      <string>Priority Scheduler</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_6">
+   <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>660</y>
-      <width>281</width>
+      <x>340</x>
+      <y>460</y>
+      <width>271</width>
       <height>91</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;Montserrat&quot;;  font-weight: bold</string>
+     <string notr="true">font: 12pt &quot;Montserrat&quot;; outline-color: blue; font-weight: bold</string>
+    </property>
+    <property name="text">
+     <string>SJF Scheduler</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>710</y>
+      <width>271</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Montserrat&quot;; outline-color: blue; font-weight: bold</string>
     </property>
     <property name="text">
      <string>Round Robin Scheduler</string>

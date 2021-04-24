@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1207</width>
-    <height>839</height>
+    <height>836</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,45 +24,10 @@
    <string notr="true">background-color: white;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPlainTextEdit" name="plainTextEdit">
-    <property name="geometry">
-     <rect>
-      <x>330</x>
-      <y>150</y>
-      <width>101</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px  solid black;  font: 55 20pt</string>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit_4">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>310</y>
-      <width>301</width>
-      <height>371</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px  solid black;  font: 55 20pt</string>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>460</x>
       <y>240</y>
       <width>301</width>
       <height>91</height>
@@ -78,45 +43,10 @@
      <string>Burst Time of Each Process</string>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit_3">
-    <property name="geometry">
-     <rect>
-      <x>470</x>
-      <y>310</y>
-      <width>301</width>
-      <height>371</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-    <property name="overwriteMode">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QToolButton" name="toolButton_6">
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>720</y>
-      <width>281</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 14pt &quot;Montserrat&quot;;  font-weight: bold; color:#FF5757;  font-size: 14;</string>
-    </property>
-    <property name="text">
-     <string>RUN</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>70</x>
       <y>260</y>
       <width>341</width>
       <height>51</height>
@@ -180,8 +110,8 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>270</y>
+      <x>840</x>
+      <y>280</y>
       <width>411</width>
       <height>31</height>
      </rect>
@@ -194,25 +124,6 @@
     </property>
     <property name="text">
      <string>Priority of Each Process</string>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit_5">
-    <property name="geometry">
-     <rect>
-      <x>840</x>
-      <y>310</y>
-      <width>301</width>
-      <height>371</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-    <property name="overwriteMode">
-     <bool>false</bool>
     </property>
    </widget>
    <widget class="QRadioButton" name="radioButton">
@@ -230,6 +141,74 @@ font: 12pt &quot;Montserrat&quot;; font-weight: bold; color: black;</string>
     </property>
     <property name="text">
      <string>Preemptive or not?</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>720</y>
+      <width>271</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;Montserrat&quot;;  font-weight: bold; color:#FF5757;  font-size: 14;</string>
+    </property>
+    <property name="text">
+     <string>RUN</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>150</y>
+      <width>91</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>320</y>
+      <width>291</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_4">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>320</y>
+      <width>291</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_5">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>320</y>
+      <width>291</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
     </property>
    </widget>
   </widget>

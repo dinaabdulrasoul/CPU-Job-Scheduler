@@ -41,46 +41,11 @@ font: 12pt &quot;Montserrat&quot;; font-weight: bold; color: black;</string>
      <string>Preemptive or not?</string>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>160</y>
-      <width>101</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px  solid black;  font: 55 20pt</string>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit_4">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>310</y>
-      <width>291</width>
-      <height>371</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px  solid black;  font: 55 20pt</string>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>260</y>
+      <x>490</x>
+      <y>250</y>
       <width>411</width>
       <height>51</height>
      </rect>
@@ -93,41 +58,6 @@ font: 12pt &quot;Montserrat&quot;; font-weight: bold; color: black;</string>
     </property>
     <property name="text">
      <string>Burst Time of Each Process</string>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit_3">
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>310</y>
-      <width>301</width>
-      <height>371</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-    <property name="overwriteMode">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QToolButton" name="toolButton_6">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>700</y>
-      <width>281</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 14pt &quot;Montserrat&quot;;  font-weight: bold; color:#FF5757;  font-size: 14;</string>
-    </property>
-    <property name="text">
-     <string>RUN</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -192,6 +122,61 @@ font: 12pt &quot;Montserrat&quot;; font-weight: bold; color: black;</string>
     </property>
     <property name="text">
      <string>PLEASE ENTER THE FOLLOWING INPUTS:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>730</y>
+      <width>271</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;Montserrat&quot;;  font-weight: bold; color:#FF5757;  font-size: 14;</string>
+    </property>
+    <property name="text">
+     <string>RUN</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>310</y>
+      <width>291</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>310</y>
+      <width>291</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>150</y>
+      <width>91</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
     </property>
    </widget>
   </widget>

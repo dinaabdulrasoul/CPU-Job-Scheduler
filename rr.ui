@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>828</width>
-    <height>861</height>
+    <height>879</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,44 +43,6 @@
      <string>Number of Processes</string>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>190</y>
-      <width>101</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px  solid black;  font: 55 20pt</string>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit_3">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>340</y>
-      <width>301</width>
-      <height>371</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-    <property name="overwriteMode">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
@@ -102,38 +64,6 @@
     </property>
     <property name="text">
      <string>PLEASE ENTER THE FOLLOWING INPUTS:</string>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit_4">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>340</y>
-      <width>291</width>
-      <height>371</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px  solid black;  font: 55 20pt</string>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QToolButton" name="toolButton_6">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>730</y>
-      <width>281</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 14pt &quot;Montserrat&quot;;  font-weight: bold; color:#FF5757;  font-size: 14;</string>
-    </property>
-    <property name="text">
-     <string>RUN</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -196,23 +126,72 @@
      <string>Quantum</string>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit_2">
+   <widget class="QTextEdit" name="textEdit_2">
     <property name="geometry">
      <rect>
-      <x>580</x>
-      <y>190</y>
-      <width>101</width>
-      <height>51</height>
+      <x>50</x>
+      <y>340</y>
+      <width>291</width>
+      <height>371</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: 2px  solid black;  font: 55 20pt</string>
+     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
     </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>340</y>
+      <width>291</width>
+      <height>371</height>
+     </rect>
     </property>
-    <property name="plainText">
-     <string/>
+    <property name="styleSheet">
+     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>750</y>
+      <width>271</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;Montserrat&quot;;  font-weight: bold; color:#FF5757;  font-size: 14;</string>
+    </property>
+    <property name="text">
+     <string>RUN</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_4">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>180</y>
+      <width>91</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_5">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>180</y>
+      <width>91</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px  solid black; font: 75 20pt</string>
     </property>
    </widget>
   </widget>
