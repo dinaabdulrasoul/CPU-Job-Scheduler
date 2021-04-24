@@ -1,14 +1,8 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'first.ui'
-#
-# Created by: PyQt5 UI code generator 5.14.1
-#
-# WARNING! All changes made in this file will be lost!
 
 import matplotlib.patches as mpatches
 from PyQt5 import QtCore, QtGui, QtWidgets
 import numpy as np
+import sys 
 
 
 import matplotlib.pyplot as plt
@@ -37,21 +31,25 @@ class Queue:
 
     def empty(self):
         if(len(self.q) == 0): return 1
-        return 0 ##thith #this ca
+        return 0 
 #this class is made for the rr algorithim
 
 
 
 class SJF(object):
-    
     def fig_init(self, processes_name, total_burst):
+        
+        #Declaring a figure
         self.fig, self.gnt = plt.subplots()  # must be global
 
+        #Setting x-axis and y-axis limits
         self.gnt.set_ylim(0, len(processes_name))
         self.gnt.set_xlim(0, total_burst)
+        #Labels 
         self.gnt.set_ylabel('Processes')
-        self.gnt.set_xlabel('Time Taken By Each Process')
+        self.gnt.set_xlabel('Time Taken by Each Process')
 
+        #Setting y-axis ticks
         ytick = [(i + 1) * 10 for i in range(len(processes_name) + 1)]
 
         self.gnt.set_xticks(np.arange(0, total_burst + 1, 1))
@@ -61,7 +59,8 @@ class SJF(object):
 
     def draw(self, name, start_time, end_time):
         no = int(name[1:])
-        self.gnt.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=('tab:orange'))
+        # Declearing a bar in the schedule
+        self.gnt.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=('tab:blue'))
 
     def swapPositions(self,list, pos1, pos2):
         list[pos1], list[pos2] = list[pos2], list[pos1]
@@ -250,13 +249,14 @@ class SJF(object):
 
     def click(self):
         try:
-            Number_Of_Processes = int(self.textEdit.toPlainText())
+            Number_Of_Processes = int(self.textEdit_3.toPlainText())
 
             value_of_textedit_2 = self.textEdit_2.toPlainText()
             Arrival_Time_List = value_of_textedit_2.splitlines()
+            
 
-            value_of_textedit_3 = self.textEdit_3.toPlainText()
-            Burst_Time_List = value_of_textedit_3.splitlines()
+            value_of_textedit = self.textEdit.toPlainText()
+            Burst_Time_List = value_of_textedit.splitlines()
             Processes_Names = []
             i = 0
             x = 0
@@ -306,89 +306,84 @@ class SJF(object):
             root = tkinter.Tk()
             root.withdraw()
             messagebox.showerror("Error", "Error in input!!")
+            
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1093, 661)
-        font = QtGui.QFont()
-        font.setFamily("MS Sans Serif")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
-        MainWindow.setFont(font)
+        MainWindow.resize(876, 866)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("scheduler (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
+        MainWindow.setAutoFillBackground(False)
+        MainWindow.setStyleSheet("background-color: white;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(0, 20, 331, 61))
-        self.label.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
-        self.label.setObjectName("label")
-        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(360, 20, 101, 61))
-        self.textEdit.setObjectName("textEdit")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(160, 190, 291, 71))
-        self.label_2.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
-        self.label_2.setObjectName("label_2")
-        self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_2.setGeometry(QtCore.QRect(170, 260, 261, 361))
-        self.textEdit_2.setStyleSheet("font: 75 20pt \"Nirmala UI\";")
-        self.textEdit_2.setObjectName("textEdit_2")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(860, 20, 191, 61))
-        self.pushButton.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color:white;\n"
-"background:red;\n"
-"border-radius:12;\n"
-"")
-        self.pushButton.setObjectName("pushButton")
-        self.textEdit_3 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_3.setGeometry(QtCore.QRect(580, 260, 261, 361))
-        self.textEdit_3.setStyleSheet("font: 75 20pt \"Nirmala UI\";")
-        self.textEdit_3.setObjectName("textEdit_3")
-        self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(570, 190, 291, 71))
-        self.label_3.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
-        self.label_3.setObjectName("label_3")
-        self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(520, 20, 231, 61))
-        self.label_4.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
-        self.label_4.setObjectName("label_4")
         self.radioButton = QtWidgets.QRadioButton(self.centralwidget)
-        self.radioButton.setGeometry(QtCore.QRect(650, 90, 211, 61))
-        self.radioButton.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: Red;\n"
-"\n"
-"border-radius:12;")
+        self.radioButton.setGeometry(QtCore.QRect(490, 170, 301, 31))
+        self.radioButton.setStyleSheet("\n"
+"font: 12pt \"Montserrat\"; font-weight: bold; color: black;")
         self.radioButton.setObjectName("radioButton")
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(490, 250, 411, 51))
+        self.label_4.setAutoFillBackground(False)
+        self.label_4.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
+        self.label_4.setObjectName("label_4")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(90, 250, 301, 51))
+        self.label_3.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.label_3.setAutoFillBackground(False)
+        self.label_3.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
+        self.label_3.setObjectName("label_3")
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5.setGeometry(QtCore.QRect(90, 130, 231, 101))
+        self.label_5.setAutoFillBackground(False)
+        self.label_5.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
+        self.label_5.setObjectName("label_5")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(150, 40, 651, 101))
+        self.label.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.label.setAutoFillBackground(False)
+        self.label.setStyleSheet("font: 16pt \"Montserrat\"; color: black ; font-weight: bold;\n"
+" font-weight:bold;")
+        self.label.setObjectName("label")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(290, 730, 271, 91))
+        self.pushButton.setStyleSheet("font: 14pt \"Montserrat\";  font-weight: bold; color:#FF5757;  font-size: 14;")
+        self.pushButton.setObjectName("pushButton")
+        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit.setGeometry(QtCore.QRect(490, 310, 291, 371))
+        self.textEdit.setStyleSheet("border: 2px  solid black; font: 75 20pt")
+        self.textEdit.setObjectName("textEdit")
+        self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_2.setGeometry(QtCore.QRect(90, 310, 291, 371))
+        self.textEdit_2.setStyleSheet("border: 2px  solid black; font: 75 20pt")
+        self.textEdit_2.setObjectName("textEdit_2")
+        self.textEdit_3 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_3.setGeometry(QtCore.QRect(330, 150, 91, 61))
+        self.textEdit_3.setStyleSheet("border: 2px  solid black; font: 75 20pt")
+        self.textEdit_3.setObjectName("textEdit_3")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        
+        #Connecting to the Run Button 
+        
         self.pushButton.clicked.connect(self.click)
-        MainWindow.setFixedSize(1093, 661)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "  Number of process :"))
-        self.label_2.setText(_translate("MainWindow", "   Arrival Time"))
-        self.pushButton.setText(_translate("MainWindow", "Run"))
-        self.label_3.setText(_translate("MainWindow", "  Burst Time"))
-        self.label_4.setText(_translate("MainWindow", "  Execution :"))
-        self.radioButton.setText(_translate("MainWindow", " Preemptive"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "CPU Job Scheduler"))
+        self.radioButton.setText(_translate("MainWindow", "Preemptive or not?"))
+        self.label_4.setText(_translate("MainWindow", "Burst Time of Each Process"))
+        self.label_3.setText(_translate("MainWindow", "Arrival time of Each Process"))
+        self.label_5.setText(_translate("MainWindow", "Number of Processes"))
+        self.label.setText(_translate("MainWindow", "PLEASE ENTER THE FOLLOWING INPUTS:"))
+        self.pushButton.setText(_translate("MainWindow", "RUN"))
+
 
 
 class rr(object):
@@ -409,7 +404,7 @@ class rr(object):
 
     def draw(self, name, start_time, end_time):
         no = int(name[1:])
-        self.gnt.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=('tab:orange'))
+        self.gnt.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=('tab:blue'))
 
 
 
@@ -530,7 +525,7 @@ class rr(object):
 
     def click(self):
         try:
-            Number_Of_Processes = int(self.textEdit.toPlainText())
+            Number_Of_Processes = int(self.textEdit_4.toPlainText())
 
             value_of_textedit_2 = self.textEdit_2.toPlainText()
             Arrival_Time_List = value_of_textedit_2.splitlines()
@@ -538,7 +533,7 @@ class rr(object):
             value_of_textedit_3 = self.textEdit_3.toPlainText()
             Burst_Time_List = value_of_textedit_3.splitlines()
 
-            quantum = float(self.textEdit_4.toPlainText())
+            quantum = float(self.textEdit_5.toPlainText())
             Processes_Names = []
             i = 0
             x = 0
@@ -585,85 +580,87 @@ class rr(object):
             root = tkinter.Tk()
             root.withdraw()
             messagebox.showerror("Error", "Error in input!!")
+            
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1044, 641)
-        font = QtGui.QFont()
-        font.setFamily("MS Sans Serif")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
-        MainWindow.setFont(font)
+        MainWindow.resize(828, 900)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("scheduler (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
+        MainWindow.setAutoFillBackground(False)
+        MainWindow.setStyleSheet("background-color: white;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5.setGeometry(QtCore.QRect(50, 160, 231, 101))
+        self.label_5.setAutoFillBackground(False)
+        self.label_5.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
+        self.label_5.setObjectName("label_5")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(10, 30, 331, 61))
-        self.label.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
+        self.label.setGeometry(QtCore.QRect(110, 60, 651, 101))
+        self.label.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.label.setAutoFillBackground(False)
+        self.label.setStyleSheet("font: 16pt \"Montserrat\"; color: black ; font-weight: bold;\n"
+" font-weight:bold;")
         self.label.setObjectName("label")
-        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(380, 30, 101, 61))
-        self.textEdit.setObjectName("textEdit")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(30, 140, 271, 71))
-        self.label_2.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
-        self.label_2.setObjectName("label_2")
-        self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_2.setGeometry(QtCore.QRect(40, 210, 241, 401))
-        self.textEdit_2.setStyleSheet("font: 75 20pt \"Nirmala UI\";")
-        self.textEdit_2.setObjectName("textEdit_2")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(690, 30, 281, 61))
-        self.pushButton.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color:white;\n"
-"background:red;\n"
-"border-radius:12;\n"
-"")
-        self.pushButton.setObjectName("pushButton")
-        self.textEdit_3 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_3.setGeometry(QtCore.QRect(390, 210, 231, 401))
-        self.textEdit_3.setStyleSheet("font: 75 20pt \"Nirmala UI\";")
-        self.textEdit_3.setObjectName("textEdit_3")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(380, 140, 261, 71))
-        self.label_3.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
+        self.label_3.setGeometry(QtCore.QRect(50, 270, 341, 71))
+        self.label_3.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.label_3.setAutoFillBackground(False)
+        self.label_3.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
         self.label_3.setObjectName("label_3")
-        self.textEdit_4 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_4.setGeometry(QtCore.QRect(760, 210, 200, 50))
-        self.textEdit_4.setStyleSheet("font: 75 20pt \"Nirmala UI\";")
-        self.textEdit_4.setObjectName("textEdit_4")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(750, 140, 241, 71))
-        self.label_4.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
+        self.label_4.setGeometry(QtCore.QRect(440, 280, 411, 51))
+        self.label_4.setAutoFillBackground(False)
+        self.label_4.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
         self.label_4.setObjectName("label_4")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(450, 160, 111, 101))
+        self.label_6.setAutoFillBackground(False)
+        self.label_6.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
+        self.label_6.setObjectName("label_6")
+        self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_2.setGeometry(QtCore.QRect(50, 340, 291, 371))
+        self.textEdit_2.setStyleSheet("border: 2px  solid black; font: 75 20pt")
+        self.textEdit_2.setObjectName("textEdit_2")
+        self.textEdit_3 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_3.setGeometry(QtCore.QRect(440, 340, 291, 371))
+        self.textEdit_3.setStyleSheet("border: 2px  solid black; font: 75 20pt")
+        self.textEdit_3.setObjectName("textEdit_3")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(260, 750, 271, 91))
+        self.pushButton.setStyleSheet("font: 14pt \"Montserrat\";  font-weight: bold; color:#FF5757;  font-size: 14;")
+        self.pushButton.setObjectName("pushButton")
+        self.textEdit_4 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_4.setGeometry(QtCore.QRect(290, 180, 91, 61))
+        self.textEdit_4.setStyleSheet("border: 2px  solid black; font: 75 20pt")
+        self.textEdit_4.setObjectName("textEdit_4")
+        self.textEdit_5 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_5.setGeometry(QtCore.QRect(570, 180, 91, 61))
+        self.textEdit_5.setStyleSheet("border: 2px  solid black; font: 75 20pt")
+        self.textEdit_5.setObjectName("textEdit_5")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        
+        #Connecting to the Run Button 
         self.pushButton.clicked.connect(self.click)
-        MainWindow.setFixedSize(1044, 641)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "  Number of process :"))
-        self.label_2.setText(_translate("MainWindow", "   Arrival Time"))
-        self.pushButton.setText(_translate("MainWindow", "Run"))
-        self.label_3.setText(_translate("MainWindow", "  Burst Time"))
-        self.label_4.setText(_translate("MainWindow", "   quantem"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "CPU Job Scheduler"))
+        self.label_5.setText(_translate("MainWindow", "Number of Processes"))
+        self.label.setText(_translate("MainWindow", "PLEASE ENTER THE FOLLOWING INPUTS:"))
+        self.label_3.setText(_translate("MainWindow", "Arrival time of Each Process"))
+        self.label_4.setText(_translate("MainWindow", "Burst Time of Each Process"))
+        self.label_6.setText(_translate("MainWindow", "Quantum"))
+        self.pushButton.setText(_translate("MainWindow", "RUN"))
+
+
 
 class FCFS(object):
     def fig_init(self, processes_name, total_burst):
@@ -683,7 +680,7 @@ class FCFS(object):
 
     def draw(self, name, start_time, end_time):
         no = int(name[1:])
-        self.gnt.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=('tab:orange'))
+        self.gnt.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=('tab:blue'))
 
     def sort(self,arrival_time, process_name, burst_time):
         for i in range(len(arrival_time)):
@@ -736,9 +733,10 @@ class FCFS(object):
         red_patch = mpatches.Patch(label="The Average Waiting Time is: {}".format(average_waiting), fill=False)
         plt.legend(handles=[red_patch])
         plt.show()
+        
     def click(self):
         try:
-            Number_Of_Processes = int(self.textEdit.toPlainText())
+            Number_Of_Processes = int(self.textEdit_4.toPlainText())
 
             value_of_textedit_2 = self.textEdit_2.toPlainText()
             Arrival_Time_List = value_of_textedit_2.splitlines()
@@ -790,73 +788,77 @@ class FCFS(object):
             root = tkinter.Tk()
             root.withdraw()
             messagebox.showerror("Error", "Error in input!!")
+            
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(963, 667)
-        font = QtGui.QFont()
-        font.setFamily("MS Sans Serif")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
-        MainWindow.setFont(font)
+        MainWindow.setEnabled(True)
+        MainWindow.resize(872, 859)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("scheduler (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
+        MainWindow.setAutoFillBackground(False)
+        MainWindow.setStyleSheet("background-color: white;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(20, 40, 331, 61))
-        self.label.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
+        self.label.setGeometry(QtCore.QRect(150, 50, 651, 101))
+        self.label.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.label.setAutoFillBackground(False)
+        self.label.setStyleSheet("font: 16pt \"Montserrat\"; color: black ; font-weight: bold;\n"
+" font-weight:bold;")
         self.label.setObjectName("label")
-        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(390, 40, 101, 61))
-        self.textEdit.setObjectName("textEdit")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(70, 190, 291, 71))
-        self.label_2.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
-        self.label_2.setObjectName("label_2")
-        self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_2.setGeometry(QtCore.QRect(80, 260, 261, 371))
-        self.textEdit_2.setStyleSheet("font: 75 20pt \"Nirmala UI\";")
-        self.textEdit_2.setObjectName("textEdit_2")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(660, 40, 221, 61))
-        self.pushButton.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color:white;\n"
-"background:red;\n"
-"border-radius:12;\n"
-"")
-        self.pushButton.setObjectName("pushButton")
-        self.textEdit_3 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_3.setGeometry(QtCore.QRect(570, 260, 261, 371))
-        self.textEdit_3.setStyleSheet("font: 75 20pt \"Nirmala UI\";")
-        self.textEdit_3.setObjectName("textEdit_3")
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(450, 260, 411, 71))
+        self.label_4.setAutoFillBackground(False)
+        self.label_4.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
+        self.label_4.setObjectName("label_4")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(560, 190, 291, 71))
-        self.label_3.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
+        self.label_3.setGeometry(QtCore.QRect(60, 280, 341, 41))
+        self.label_3.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.label_3.setAutoFillBackground(False)
+        self.label_3.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
         self.label_3.setObjectName("label_3")
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5.setGeometry(QtCore.QRect(60, 150, 231, 101))
+        self.label_5.setAutoFillBackground(False)
+        self.label_5.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
+        self.label_5.setObjectName("label_5")
+        self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_2.setGeometry(QtCore.QRect(60, 330, 291, 371))
+        self.textEdit_2.setStyleSheet("border: 2px  solid black; font: 75 20pt")
+        self.textEdit_2.setObjectName("textEdit_2")
+        self.textEdit_3 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_3.setGeometry(QtCore.QRect(450, 330, 291, 371))
+        self.textEdit_3.setStyleSheet("border: 2px  solid black; font: 75 20pt")
+        self.textEdit_3.setObjectName("textEdit_3")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(280, 730, 271, 91))
+        self.pushButton.setStyleSheet("font: 14pt \"Montserrat\";  font-weight: bold; color:#FF5757;  font-size: 14;")
+        self.pushButton.setObjectName("pushButton")
+        self.textEdit_4 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_4.setGeometry(QtCore.QRect(300, 180, 91, 61))
+        self.textEdit_4.setStyleSheet("border: 2px  solid black; font: 75 20pt")
+        self.textEdit_4.setObjectName("textEdit_4")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        MainWindow.setFixedSize(963, 667)
+
+        #Connecting to the Run Button 
         self.pushButton.clicked.connect(self.click)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "  Number of process :"))
-        self.label_2.setText(_translate("MainWindow", "   Arrival Time"))
-        self.pushButton.setText(_translate("MainWindow", "Run"))
-        self.label_3.setText(_translate("MainWindow", "  Burst Time"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "CPU Job Scheduler"))
+        self.label.setText(_translate("MainWindow", "PLEASE ENTER THE FOLLOWING INPUTS:"))
+        self.label_4.setText(_translate("MainWindow", "Burst Time of Each Process"))
+        self.label_3.setText(_translate("MainWindow", "Arrival time of Each Process"))
+        self.label_5.setText(_translate("MainWindow", "Number of Processes"))
+        self.pushButton.setText(_translate("MainWindow", "RUN"))
+
+
 
 
 class priority(object):
@@ -877,7 +879,7 @@ class priority(object):
 
     def draw(self,name, start_time, end_time):
         no = int(name[1:])
-        self.gnt.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=('tab:orange'))
+        self.gnt.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=('tab:blue'))
 
     def swapPositions(self,list, pos1, pos2):
          list[pos1], list[pos2] = list[pos2], list[pos1]
@@ -1106,16 +1108,16 @@ class priority(object):
 
     def click(self):
         try:
-            Number_Of_Processes = int(self.textEdit.toPlainText())
+            Number_Of_Processes = int(self.textEdit_3.toPlainText())
 
             value_of_textedit_2 = self.textEdit_2.toPlainText()
             Arrival_Time_List = value_of_textedit_2.splitlines()
 
-            value_of_textedit_3 = self.textEdit_3.toPlainText()
-            Burst_Time_List = value_of_textedit_3.splitlines()
-
             value_of_textedit_4 = self.textEdit_4.toPlainText()
-            priority = value_of_textedit_4.splitlines()
+            Burst_Time_List = value_of_textedit_4.splitlines()
+
+            value_of_textedit_5 = self.textEdit_5.toPlainText()
+            priority = value_of_textedit_5.splitlines()
             Processes_Names = []
             x=0
             i = 0
@@ -1177,109 +1179,92 @@ class priority(object):
             root = tkinter.Tk()
             root.withdraw()
             messagebox.showerror("Error", "Error in input!!")
-        # Put your code here
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1037, 657)
-        font = QtGui.QFont()
-        font.setFamily("MS Sans Serif")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
-        MainWindow.setFont(font)
+        MainWindow.resize(1207, 836)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("scheduler (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
+        MainWindow.setAutoFillBackground(False)
+        MainWindow.setStyleSheet("background-color: white;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(460, 240, 301, 91))
+        self.label_4.setAutoFillBackground(False)
+        self.label_4.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
+        self.label_4.setObjectName("label_4")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(70, 260, 341, 51))
+        self.label_3.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.label_3.setAutoFillBackground(False)
+        self.label_3.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
+        self.label_3.setObjectName("label_3")
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5.setGeometry(QtCore.QRect(80, 120, 231, 101))
+        self.label_5.setAutoFillBackground(False)
+        self.label_5.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
+        self.label_5.setObjectName("label_5")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(10, 40, 311, 61))
-        font = QtGui.QFont()
-        font.setFamily("MS Shell Dlg 2")
-        font.setPointSize(24)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label.setFont(font)
-        self.label.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
+        self.label.setGeometry(QtCore.QRect(310, 20, 651, 101))
+        self.label.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.label.setAutoFillBackground(False)
+        self.label.setStyleSheet("font: 16pt \"Montserrat\"; color: black ; font-weight: bold;\n"
+" font-weight:bold;")
         self.label.setObjectName("label")
-        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(340, 40, 71, 61))
-        self.textEdit.setObjectName("textEdit")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(30, 170, 231, 71))
-        self.label_2.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
-        self.label_2.setObjectName("label_2")
-        self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_2.setGeometry(QtCore.QRect(40, 240, 201, 351))
-        self.textEdit_2.setStyleSheet("font: 75 20pt \"Nirmala UI\";")
-        self.textEdit_2.setObjectName("textEdit_2")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(840, 280, 411, 31))
+        self.label_6.setAutoFillBackground(False)
+        self.label_6.setStyleSheet("font: 12pt \"Montserrat\"; color: black; font-weight: bold;")
+        self.label_6.setObjectName("label_6")
+        self.radioButton = QtWidgets.QRadioButton(self.centralwidget)
+        self.radioButton.setGeometry(QtCore.QRect(510, 160, 301, 31))
+        self.radioButton.setStyleSheet("\n"
+"font: 12pt \"Montserrat\"; font-weight: bold; color: black;")
+        self.radioButton.setObjectName("radioButton")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(800, 40, 201, 61))
-        self.pushButton.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color:white;\n"
-"background:red;\n"
-"border-radius:12;\n"
-"")
+        self.pushButton.setGeometry(QtCore.QRect(480, 720, 271, 91))
+        self.pushButton.setStyleSheet("font: 14pt \"Montserrat\";  font-weight: bold; color:#FF5757;  font-size: 14;")
         self.pushButton.setObjectName("pushButton")
         self.textEdit_3 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_3.setGeometry(QtCore.QRect(370, 240, 191, 351))
-        self.textEdit_3.setStyleSheet("font: 75 20pt \"Nirmala UI\";")
+        self.textEdit_3.setGeometry(QtCore.QRect(330, 150, 91, 61))
+        self.textEdit_3.setStyleSheet("border: 2px  solid black; font: 75 20pt")
         self.textEdit_3.setObjectName("textEdit_3")
-        self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(360, 170, 211, 71))
-        self.label_3.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
-        self.label_3.setObjectName("label_3")
+        self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_2.setGeometry(QtCore.QRect(80, 320, 291, 371))
+        self.textEdit_2.setStyleSheet("border: 2px  solid black; font: 75 20pt")
+        self.textEdit_2.setObjectName("textEdit_2")
         self.textEdit_4 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_4.setGeometry(QtCore.QRect(700, 240, 181, 351))
-        self.textEdit_4.setStyleSheet("font: 75 20pt \"Nirmala UI\";")
+        self.textEdit_4.setGeometry(QtCore.QRect(460, 320, 291, 371))
+        self.textEdit_4.setStyleSheet("border: 2px  solid black; font: 75 20pt")
         self.textEdit_4.setObjectName("textEdit_4")
-        self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(690, 170, 211, 71))
-        self.label_4.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
-        self.label_4.setObjectName("label_4")
-        self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(470, 40, 201, 61))
-        self.label_5.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: white;\n"
-"background:red;\n"
-"border-radius:12;")
-        self.label_5.setObjectName("label_5")
-        self.radioButton = QtWidgets.QRadioButton(self.centralwidget)
-        self.radioButton.setGeometry(QtCore.QRect(570, 100, 211, 61))
-        self.radioButton.setStyleSheet("font: 75 24pt \"MS Shell Dlg 2\";\n"
-"color: Red;\n"
-"\n"
-"border-radius:12;")
-        self.radioButton.setObjectName("radioButton")
+        self.textEdit_5 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_5.setGeometry(QtCore.QRect(840, 320, 291, 371))
+        self.textEdit_5.setStyleSheet("border: 2px  solid black; font: 75 20pt")
+        self.textEdit_5.setObjectName("textEdit_5")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+
+
+        #Connecting to the Run Button 
         self.pushButton.clicked.connect(self.click)
-        MainWindow.setFixedSize(1037, 657)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "  Number of process :"))
-        self.label_2.setText(_translate("MainWindow", "   Arrival Time"))
-        self.pushButton.setText(_translate("MainWindow", "Run"))
-        self.label_3.setText(_translate("MainWindow", "  Burst Time"))
-        self.label_4.setText(_translate("MainWindow", "  priority"))
-        self.label_5.setText(_translate("MainWindow", "  Execution :"))
-        self.radioButton.setText(_translate("MainWindow", " Preemptive"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "CPU Job Scheduler"))
+        self.label_4.setText(_translate("MainWindow", "Burst Time of Each Process"))
+        self.label_3.setText(_translate("MainWindow", "Arrival time of Each Process"))
+        self.label_5.setText(_translate("MainWindow", "Number of Processes"))
+        self.label.setText(_translate("MainWindow", "PLEASE ENTER THE FOLLOWING INPUTS:"))
+        self.label_6.setText(_translate("MainWindow", "Priority of Each Process"))
+        self.radioButton.setText(_translate("MainWindow", "Preemptive or not?"))
+        self.pushButton.setText(_translate("MainWindow", "RUN"))
+
 
 
 class Ui_MainWindow(object):
@@ -1310,70 +1295,64 @@ class Ui_MainWindow(object):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1127, 690)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        MainWindow.setFont(font)
-        MainWindow.setStyleSheet("background: grey;")
+        MainWindow.resize(927, 848)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("scheduler (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
+        MainWindow.setAutoFillBackground(False)
+        MainWindow.setStyleSheet("background-color: white;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(190, 240, 651, 101))
+        self.label.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.label.setAutoFillBackground(False)
+        self.label.setStyleSheet("font: 12pt \"Montserrat\"; color: black ; font-weight: bold;\n"
+" font-weight:bold;")
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(310, 40, 331, 211))
+        self.label_2.setText("")
+        self.label_2.setPixmap(QtGui.QPixmap("bigger.png"))
+        self.label_2.setObjectName("label_2")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(60, 390, 211, 91))
-        self.pushButton.setStyleSheet("font: 30pt \"MV Boli\";\n"
-"background: red;\n"
-"border-radius: 12;\n"
-"color:white;")
+        self.pushButton.setGeometry(QtCore.QRect(340, 330, 271, 91))
+        self.pushButton.setStyleSheet("font: 12pt \"Montserrat\"; outline-color: blue; font-weight: bold")
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(810, 560, 211, 91))
-        self.pushButton_2.setStyleSheet("font: 30pt \"MV Boli\";color:white;\n"
-"background: red;\n"
-"border-radius: 12;")
+        self.pushButton_2.setGeometry(QtCore.QRect(340, 580, 271, 91))
+        self.pushButton_2.setStyleSheet("font: 12pt \"Montserrat\"; outline-color: blue; font-weight: bold")
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(310, 570, 211, 91))
-        self.pushButton_3.setStyleSheet("\n"
-"color:white;font: 30pt \"MV Boli\";\n"
-"background: red;\n"
-"border-radius: 12;")
+        self.pushButton_3.setGeometry(QtCore.QRect(340, 460, 271, 91))
+        self.pushButton_3.setStyleSheet("font: 12pt \"Montserrat\"; outline-color: blue; font-weight: bold")
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(610, 400, 271, 91))
-        self.pushButton_4.setStyleSheet("font: 30pt \"MV Boli\";\n"
-"background: red;\n"
-"border-radius: 12;\n"
-"color:white;")
-
+        self.pushButton_4.setGeometry(QtCore.QRect(340, 710, 271, 91))
+        self.pushButton_4.setStyleSheet("font: 12pt \"Montserrat\"; outline-color: blue; font-weight: bold")
         self.pushButton_4.setObjectName("pushButton_4")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(0, 90, 1271, 111))
-        self.label.setStyleSheet("font: 36pt \"MV Boli\";\n"
-"color: white;\n"
-"background: red;")
-        self.label.setObjectName("label")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        MainWindow.setFixedSize(1127, 690)
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+        # Connecting pushbuttons to the main window
         self.pushButton.clicked.connect(self.Fcfs)
         self.pushButton_2.clicked.connect(self.priority)
         self.pushButton_3.clicked.connect(self.SJF)
         self.pushButton_4.clicked.connect(self.rr)
-        
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Job Scheduler"))
-        self.pushButton.setText(_translate("MainWindow", "FCFS"))
-        self.pushButton_2.setText(_translate("MainWindow", "Priority"))
-        self.pushButton_3.setText(_translate("MainWindow", "SJF"))
-        self.pushButton_4.setText(_translate("MainWindow", "Round Robin"))
-        self.label.setText(_translate("MainWindow", "Choose The Scheduler Type :"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "CPU Job Scheduler"))
+        self.label.setText(_translate("MainWindow", "CHOOSE THE TYPE OF SCHEDULER TO GET STARTED:"))
+        self.pushButton.setText(_translate("MainWindow", "FCFS Scheduler"))
+        self.pushButton_2.setText(_translate("MainWindow", "Priority Scheduler"))
+        self.pushButton_3.setText(_translate("MainWindow", "SJF Scheduler"))
+        self.pushButton_4.setText(_translate("MainWindow", "Round Robin Scheduler"))
 
 
 if __name__ == "__main__":
