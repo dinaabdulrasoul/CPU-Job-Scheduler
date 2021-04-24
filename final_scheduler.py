@@ -706,7 +706,6 @@ class FCFS(object):
         waiting_time = []
         for k in range(len(turn_around)):
             waiting_time.append(turn_around[k] - Burst_Time_List[k])
-            print("Waiting time is ", waiting_time[k])
 
         average_waiting = sum(waiting_time) / len(Processes_Names)
 
