@@ -1,15 +1,20 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Apr 24 05:34:34 2021
 
+@author: dinaa
+"""
+
+import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from PyQt5 import QtCore, QtGui, QtWidgets
+import tkinter
+from tkinter import messagebox
 import numpy as np
 import sys 
 
-
-import matplotlib.pyplot as plt
-import tkinter
-from tkinter import messagebox
-
 class Queue:
+    """Class created to assist the RR algorithm"""
     def __init__(self,l=None):
         if(l == None):
             self.q=[]
@@ -32,11 +37,11 @@ class Queue:
     def empty(self):
         if(len(self.q) == 0): return 1
         return 0 
-#this class is made for the rr algorithim
 
 
 
 class SJF(object):
+    """SJF scheduler implementation and GUI."""
     def fig_init(self, processes_name, total_burst):
         
         #Declaring a figure
@@ -289,17 +294,7 @@ class SJF(object):
                 Processes_Names.append("p" + str(i + 1))
 
             Preemptive = self.radioButton.isChecked()
-            ##
-            ##
-            # this variable value become true when we choose to be preemptive and become false if don't do anything
-            # there is our variables:
-            # Processes_Names
-            # Burst_Time_List
-            # Arrival_Time_List
-            # Number_Of_Processes
-            # Preemptive
 
-            # Put your code here
             if (x != 1):
                 self.sjf(Processes_Names, Burst_Time_List, Arrival_Time_List, Number_Of_Processes, Preemptive)
         except ValueError:
@@ -311,7 +306,7 @@ class SJF(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(876, 866)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("scheduler (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("bigger.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("background-color: white;")
@@ -367,7 +362,6 @@ class SJF(object):
         MainWindow.setStatusBar(self.statusbar)
         
         #Connecting to the Run Button 
-        
         self.pushButton.clicked.connect(self.click)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -387,6 +381,8 @@ class SJF(object):
 
 
 class rr(object):
+    """RR scheduler algorithm implementation and GUI."""
+        
     def fig_init(self, processes_name, total_burst):
         self.fig, self.gnt = plt.subplots()  # must be global
 
@@ -412,7 +408,6 @@ class rr(object):
         turn_around = [i for i in range(len(Processes_Names))]
         total = sum(Burst_Time_List) + 10 + max(Arrival_Time_List)
         self.fig_init(Processes_Names, total)
-        ##@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         # algorithim
         # first sort
         swapped = None
@@ -504,15 +499,6 @@ class rr(object):
                         break;
 
 
-
-
-
-
-
-
-
-
-        # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         waiting = []
         for i in range(len(Processes_Names)):
             waiting.append(turn_around[i] - Burst_Copy[i])
@@ -565,15 +551,6 @@ class rr(object):
                     x = 1
                 Processes_Names.append("p" + str(i + 1))
 
-            # there is our variables:
-            # Processes_Names
-            # Burst_Time_List
-            # Arrival_Time_List
-            # Number_Of_Processess
-            # quantum
-
-            # Put your code here
-            ##############
             if (x != 1):
                 self.Round_Robin(Processes_Names, Burst_Time_List, Arrival_Time_List, Number_Of_Processes, quantum)
         except:
@@ -663,6 +640,8 @@ class rr(object):
 
 
 class FCFS(object):
+    """FCFS scheduler algorithm implementation and GUI."""
+    
     def fig_init(self, processes_name, total_burst):
         self.fig, self.gnt = plt.subplots()  # must be global
 
@@ -794,7 +773,7 @@ class FCFS(object):
         MainWindow.setEnabled(True)
         MainWindow.resize(872, 859)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("scheduler (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("bigger.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("background-color: white;")
@@ -862,6 +841,7 @@ class FCFS(object):
 
 
 class priority(object):
+    """Priority scheduling algorithm implementation and GUI."""
     def fig_init(self,processes_name, total_burst):
         self.fig, self.gnt = plt.subplots()  # must be global
 
@@ -1184,7 +1164,7 @@ class priority(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1207, 836)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("scheduler (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("bigger.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("background-color: white;")
@@ -1268,6 +1248,7 @@ class priority(object):
 
 
 class Ui_MainWindow(object):
+    """"Main UI Window class."""
     def Fcfs(self):
         self.window =QtWidgets.QMainWindow()
         self.ui= FCFS()
@@ -1297,7 +1278,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(927, 848)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("scheduler (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("bigger.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("background-color: white;")
@@ -1356,7 +1337,6 @@ class Ui_MainWindow(object):
 
 
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
