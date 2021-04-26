@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sat Apr 24 05:34:34 2021
-@author: dinaa
+CPU sheduler project
 """
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from PyQt5 import QtCore, QtGui, QtWidgets
-import tkinter
-from tkinter import messagebox
 import numpy as np
 import sys 
 
@@ -38,58 +36,54 @@ class Queue:
         return 0 
 
 
-
 class SJF(object):
     """SJF scheduler implementation and GUI."""
-    #fig,ax=plt.subplots()
     def fig_init(self, processes_name, total_burst):
         
         #Declaring a figure
-        self.fig, self.ax = plt.subplots()  # must be global
+        self.fig, self.ax = plt.subplots()  
         self.processes_name= processes_name
+
         #Setting x-axis and y-axis limits
         self.ax.set_ylim(0, len(processes_name))
         self.ax.set_xlim(0, total_burst)
+
         #Labels 
         self.ax.set_ylabel('Processes')
         self.ax.set_xlabel('Time Taken by Each Process')
 
         #Setting y-axis ticks
         ytick = [(i + 1) * 10 for i in range(len(processes_name) + 1)]
-
         self.ax.set_xticks(np.arange(0, total_burst + 1, 1))
         self.ax.set_yticks(ytick)
-        ######self.ax.set_yticklabels(["self.processes_name"," "," "," "])
-        #self.ax.grid(True)
+
         self.ax.grid(axis='x')
 
     def draw(self, name, start_time, end_time):
+
         no = int(name[1:])
         name = name.title()
         colors = ['blue','#1f77b4','#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
           '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#1f77b4','#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+          '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', 'blue','#1f77b4','#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+          '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#1f77b4','#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
           '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
-        color = []
 
-        for i in range(0,len(self.processes_name)+1):
-            
-            color = colors[i]
-   
         # Declearing a bar in the schedule
-        #self.ax.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=('tab:blue'))
         
         self.ax.broken_barh([(start_time, end_time - start_time)], (0,8), facecolors=colors[no])
-        for i in range(0, len(self.processes_name)):
+
+        for _ in range(0, len(self.processes_name)):
             x = start_time + (end_time-start_time)/2
             y = 4
             s = name[0:]
             self.ax.text(x, y, s=s, ha='center',va='bottom', fontsize =10, fontweight = "bold")
+
         self.ax.spines['left'].set_visible(False)
         self.ax.spines['bottom'].set_visible(False)
         self.ax.spines['top'].set_visible(False)
         self.ax.spines['right'].set_visible(False)
         self.ax.set_axisbelow(True) 
-
 
 
     def swapPositions(self,list, pos1, pos2):
@@ -102,205 +96,191 @@ class SJF(object):
             Min = list[x]
             if Min > 0:
                 break
+
         for x in range(len(list)):
             for y in range(x + 1, len(list)):
                 if (list[y] < Min and list[y] > 0):
                     Min = list[y]
         return Min
 
-    def sjf(self,Processes_Names,Burst_Time_List,Arrival_Time_List,Number_Of_Processes,Preemptive):
-        self.fig_init(Processes_Names, sum(Burst_Time_List) + 10 + max(Arrival_Time_List))
+    def sjf(self,processesNames,burstTime,arrivalTime,numberProcesses,Preemptive):
+        self.fig_init(processesNames, sum(burstTime) + 10 + max(arrivalTime))
         last_x = 0
         flag = 0
-        New_list_burst = []
-        New_list_Process = []
-        Arrived_List = []
-        Avr_waiting_Time = []
-        Sum_of_avg_time = 0
+        newBurstList = []
+        newProcessesList = []
+        arrivedList = []
+        avgWaitingTime = []
+        sumAvgTime = 0
+        
         if not (Preemptive):
-            #########################################################
-            # Sorting Lists by Arrival Time
-            ##########################################################
-            for x in range(Number_Of_Processes):
-                for y in range(x + 1, Number_Of_Processes):
-                    if Arrival_Time_List[x] > Arrival_Time_List[y]:
-                        self.swapPositions(Arrival_Time_List, x, y)
-                        self.swapPositions(Burst_Time_List, x, y)
-                        self.swapPositions(Processes_Names, x, y)
-                    elif Arrival_Time_List[x] == Arrival_Time_List[y]:
-                        if Burst_Time_List[x] > Burst_Time_List[y]:
-                            self.swapPositions(Burst_Time_List, x, y)
-                            self.swapPositions(Processes_Names, x, y)
-            ############################################################
-            # draw Processes
-            ############################################################
-            for z in range(Number_Of_Processes):
-                for count in range(Number_Of_Processes):
-                    if last_x >= Arrival_Time_List[count]:
+            # Sorting based on arrival time
+            for x in range(numberProcesses):
+                for y in range(x + 1, numberProcesses):
+                    if arrivalTime[x] > arrivalTime[y]:
+                        self.swapPositions(arrivalTime, x, y)
+                        self.swapPositions(burstTime, x, y)
+                        self.swapPositions(processesNames, x, y)
+                    elif arrivalTime[x] == arrivalTime[y]:
+                        if burstTime[x] > burstTime[y]:
+                            self.swapPositions(burstTime, x, y)
+                            self.swapPositions(processesNames, x, y)
+            # Graphing the processes
+            for z in range(numberProcesses):
+                for count in range(numberProcesses):
+                    if last_x >= arrivalTime[count]:
                         flag = 1
-                        Arrived_List.append(Arrival_Time_List[count])
-                        New_list_burst.append(Burst_Time_List[count])
-                        New_list_Process.append(Processes_Names[count])
-                if sum(New_list_burst) == 0:
+                        arrivedList.append(arrivalTime[count])
+                        newBurstList.append(burstTime[count])
+                        newProcessesList.append(processesNames[count])
+                if sum(newBurstList) == 0:
                     flag = 0
                 if (flag):
-                    min_value = self.get_min_pos(New_list_burst)
-                    index_Of_min = New_list_burst.index(min_value)
-                    self.draw(New_list_Process[index_Of_min], last_x, last_x + New_list_burst[index_Of_min])
-                    last_x = last_x + New_list_burst[index_Of_min]
+                    min_value = self.get_min_pos(newBurstList)
+                    minIndex = newBurstList.index(min_value)
+                    self.draw(newProcessesList[minIndex], last_x, last_x + newBurstList[minIndex])
+                    last_x = last_x + newBurstList[minIndex]
                     flag = 0
-                    index_of_sepec_process = Processes_Names.index(New_list_Process[index_Of_min])
-                    Avr_waiting_Time.append(last_x - Arrival_Time_List[index_of_sepec_process]
-                                            - Burst_Time_List[index_of_sepec_process])
-                    Burst_Time_List[index_of_sepec_process] = 0
+                    index_of_sepec_process = processesNames.index(newProcessesList[minIndex])
+                    avgWaitingTime.append(last_x - arrivalTime[index_of_sepec_process]
+                                            - burstTime[index_of_sepec_process])
+                    burstTime[index_of_sepec_process] = 0
                 elif not (flag):
-                    if last_x < Arrival_Time_List[z]:
-                        self.draw(Processes_Names[z], Arrival_Time_List[z], Arrival_Time_List[z] + Burst_Time_List[z])
-                        last_x = Arrival_Time_List[z] + Burst_Time_List[z]
-                        Burst_Time_List[z] = 0
+                    if last_x < arrivalTime[z]:
+                        self.draw(processesNames[z], arrivalTime[z], arrivalTime[z] + burstTime[z])
+                        last_x = arrivalTime[z] + burstTime[z]
+                        burstTime[z] = 0
                     else:
-                        self.draw(Processes_Names[z], last_x, last_x + Burst_Time_List[z])
-                        last_x = last_x + Burst_Time_List[z]
-                        Avr_waiting_Time.append(last_x - Arrival_Time_List[z]
-                                                - Burst_Time_List[z])
-                        Burst_Time_List[z] = 0
-                New_list_burst = []
-                New_list_Process = []
-                Arrived_List = []
-            ###########################################################
-            Sum_of_avg_time = sum(Avr_waiting_Time) / Number_Of_Processes
-            ############################################################
+                        self.draw(processesNames[z], last_x, last_x + burstTime[z])
+                        last_x = last_x + burstTime[z]
+                        avgWaitingTime.append(last_x - arrivalTime[z]
+                                                - burstTime[z])
+                        burstTime[z] = 0
+                newBurstList = []
+                newProcessesList = []
+                arrivedList = []
+
+            sumAvgTime = sum(avgWaitingTime) / numberProcesses
+
         elif Preemptive:
-            #############################################################
-            # Sorting Lists by Arrival Time
-            ##########################################################
-            for x in range(Number_Of_Processes):
-                for y in range(x + 1, Number_Of_Processes):
-                    if Arrival_Time_List[x] > Arrival_Time_List[y]:
-                        self.swapPositions(Arrival_Time_List, x, y)
-                        self.swapPositions(Burst_Time_List, x, y)
-                        self.swapPositions(Processes_Names, x, y)
-                    elif Arrival_Time_List[x] == Arrival_Time_List[y]:
-                        if Burst_Time_List[x] > Burst_Time_List[y]:
-                            self.swapPositions(Burst_Time_List, x, y)
-                            self.swapPositions(Processes_Names, x, y)
-            #######################################################################
-            # Print Till Last Arrival Time
-            #########################################################################
-            for i in range(Number_Of_Processes):
-                Arrived_List.append(Arrival_Time_List[i])
-                New_list_burst.append(Burst_Time_List[i])
-                New_list_Process.append(Processes_Names[i])
+            # Sorting by arrival time
+            for x in range(numberProcesses):
+                for y in range(x + 1, numberProcesses):
+                    if arrivalTime[x] > arrivalTime[y]:
+                        self.swapPositions(arrivalTime, x, y)
+                        self.swapPositions(burstTime, x, y)
+                        self.swapPositions(processesNames, x, y)
+                    elif arrivalTime[x] == arrivalTime[y]:
+                        if burstTime[x] > burstTime[y]:
+                            self.swapPositions(burstTime, x, y)
+                            self.swapPositions(processesNames, x, y)
+            
+            # Printing all until final arrival time
+           
+            for i in range(numberProcesses):
+                arrivedList.append(arrivalTime[i])
+                newBurstList.append(burstTime[i])
+                newProcessesList.append(processesNames[i])
                 while (1):
-                    min_value = self.get_min_pos(New_list_burst)
-                    index_Of_min = New_list_burst.index(min_value)
-                    index_of_sepec_process = Processes_Names.index(New_list_Process[index_Of_min])
-                    if i != len(Arrival_Time_List) - 1:
-                        if last_x < Arrival_Time_List[i]:
-                            if Arrival_Time_List[i + 1] > (Arrival_Time_List[i] + New_list_burst[index_Of_min]):
-                                self.draw(New_list_Process[index_Of_min], Arrival_Time_List[i], Arrival_Time_List[i] +
-                                          New_list_burst[index_Of_min])
-                                last_x = Arrival_Time_List[i] + New_list_burst[index_Of_min]
-                                New_list_burst[index_Of_min] = 0
+                    min_value = self.get_min_pos(newBurstList)
+                    minIndex = newBurstList.index(min_value)
+                    index_of_sepec_process = processesNames.index(newProcessesList[minIndex])
+                    if i != len(arrivalTime) - 1:
+                        if last_x < arrivalTime[i]:
+                            if arrivalTime[i + 1] > (arrivalTime[i] + newBurstList[minIndex]):
+                                self.draw(newProcessesList[minIndex], arrivalTime[i], arrivalTime[i] +
+                                          newBurstList[minIndex])
+                                last_x = arrivalTime[i] + newBurstList[minIndex]
+                                newBurstList[minIndex] = 0
                             else:
-                                self.draw(New_list_Process[index_Of_min], Arrival_Time_List[i],
-                                          Arrival_Time_List[i + 1])
-                                last_x = Arrival_Time_List[i + 1]
-                                New_list_burst[index_Of_min] = New_list_burst[index_Of_min] - (
-                                            last_x - Arrival_Time_List[i])
-                                if New_list_burst[index_Of_min] == 0:
-                                    Avr_waiting_Time.append(last_x - Arrival_Time_List[index_of_sepec_process]
-                                                            - Burst_Time_List[index_of_sepec_process])
+                                self.draw(newProcessesList[minIndex], arrivalTime[i],
+                                          arrivalTime[i + 1])
+                                last_x = arrivalTime[i + 1]
+                                newBurstList[minIndex] = newBurstList[minIndex] - (
+                                            last_x - arrivalTime[i])
+                                if newBurstList[minIndex] == 0:
+                                    avgWaitingTime.append(last_x - arrivalTime[index_of_sepec_process]
+                                                            - burstTime[index_of_sepec_process])
 
                         else:
-                            if Arrival_Time_List[i + 1] > (last_x + New_list_burst[index_Of_min]):
-                                self.draw(New_list_Process[index_Of_min], last_x, last_x + New_list_burst[index_Of_min])
-                                last_x = last_x + New_list_burst[index_Of_min]
-                                New_list_burst[index_Of_min] = 0
-                                Avr_waiting_Time.append(last_x - Arrival_Time_List[index_of_sepec_process]
-                                                        - Burst_Time_List[index_of_sepec_process])
+                            if arrivalTime[i + 1] > (last_x + newBurstList[minIndex]):
+                                self.draw(newProcessesList[minIndex], last_x, last_x + newBurstList[minIndex])
+                                last_x = last_x + newBurstList[minIndex]
+                                newBurstList[minIndex] = 0
+                                avgWaitingTime.append(last_x - arrivalTime[index_of_sepec_process]
+                                                        - burstTime[index_of_sepec_process])
                             else:
-                                self.draw(New_list_Process[index_Of_min], last_x, Arrival_Time_List[i + 1])
-                                New_list_burst[index_Of_min] = New_list_burst[index_Of_min] - (
-                                            Arrival_Time_List[i + 1] - last_x)
-                                last_x = Arrival_Time_List[i + 1]
-                                if New_list_burst[index_Of_min] == 0:
-                                    Avr_waiting_Time.append(last_x - Arrival_Time_List[index_of_sepec_process]
-                                                            - Burst_Time_List[index_of_sepec_process])
+                                self.draw(newProcessesList[minIndex], last_x, arrivalTime[i + 1])
+                                newBurstList[minIndex] = newBurstList[minIndex] - (
+                                            arrivalTime[i + 1] - last_x)
+                                last_x = arrivalTime[i + 1]
+                                if newBurstList[minIndex] == 0:
+                                    avgWaitingTime.append(last_x - arrivalTime[index_of_sepec_process]
+                                                            - burstTime[index_of_sepec_process])
 
-                    elif i == len(Arrival_Time_List) - 1:
-                        if last_x < Arrival_Time_List[i]:
-                            self.draw(New_list_Process[index_Of_min], Arrival_Time_List[i], Arrival_Time_List[i] +
-                                      New_list_burst[index_Of_min])
-                            last_x = Arrival_Time_List[i] + New_list_burst[index_Of_min]
-                            New_list_burst[index_Of_min] = 0
+                    elif i == len(arrivalTime) - 1:
+                        if last_x < arrivalTime[i]:
+                            self.draw(newProcessesList[minIndex], arrivalTime[i], arrivalTime[i] +
+                                      newBurstList[minIndex])
+                            last_x = arrivalTime[i] + newBurstList[minIndex]
+                            newBurstList[minIndex] = 0
                         else:
-                            self.draw(New_list_Process[index_Of_min], last_x, last_x + New_list_burst[index_Of_min])
-                            last_x = last_x + New_list_burst[index_Of_min]
-                            New_list_burst[index_Of_min] = 0
-                            Avr_waiting_Time.append(last_x - Arrival_Time_List[index_of_sepec_process]
-                                                    - Burst_Time_List[index_of_sepec_process])
-                    if i == Number_Of_Processes - 1:
+                            self.draw(newProcessesList[minIndex], last_x, last_x + newBurstList[minIndex])
+                            last_x = last_x + newBurstList[minIndex]
+                            newBurstList[minIndex] = 0
+                            avgWaitingTime.append(last_x - arrivalTime[index_of_sepec_process]
+                                                    - burstTime[index_of_sepec_process])
+                    if i == numberProcesses - 1:
                         break
 
-                    elif (Arrival_Time_List[i + 1] - last_x) == 0 or sum(New_list_burst) == 0:
+                    elif (arrivalTime[i + 1] - last_x) == 0 or sum(newBurstList) == 0:
                         break
-                #############################################################################
-                # Sorting by Burst Time
-                #############################################################################
-            for x in range(Number_Of_Processes):
-                for y in range(x + 1, Number_Of_Processes):
-                    if New_list_burst[x] > New_list_burst[y]:
-                        self.swapPositions(New_list_burst, x, y)
-                        self.swapPositions(Arrived_List, x, y)
-                        self.swapPositions(New_list_Process, x, y)
-                    elif New_list_burst[x] == New_list_burst[y]:
-                        if Arrived_List[x] > Arrived_List[y]:
-                            self.swapPositions(Arrived_List, x, y)
-                            self.swapPositions(New_list_Process, x, y)
-            ##########################################################################
-            # Drawing after last arrival time
-            ##########################################################################
-            for i in range(Number_Of_Processes):
-                if New_list_burst[i] > 0:
-                    self.draw(New_list_Process[i], last_x, last_x + New_list_burst[i])
-                    last_x = last_x + New_list_burst[i]
-                    index_of_sepec_process = Processes_Names.index(New_list_Process[i])
-                    Avr_waiting_Time.append(last_x - Arrival_Time_List[index_of_sepec_process]
-                                            - Burst_Time_List[index_of_sepec_process])
-            ###############################################################################
-            Sum_of_avg_time = sum(Avr_waiting_Time) / Number_Of_Processes
-            ###############################################################################
 
-        ###########################################################################
-        
-        red_patch = mpatches.Patch(label="The Average Waiting Time is: {}".format(Sum_of_avg_time), fill=False)
+                # Sorting by burst time
+            for x in range(numberProcesses):
+                for y in range(x + 1, numberProcesses):
+                    if newBurstList[x] > newBurstList[y]:
+                        self.swapPositions(newBurstList, x, y)
+                        self.swapPositions(arrivedList, x, y)
+                        self.swapPositions(newProcessesList, x, y)
+                    elif newBurstList[x] == newBurstList[y]:
+                        if arrivedList[x] > arrivedList[y]:
+                            self.swapPositions(arrivedList, x, y)
+                            self.swapPositions(newProcessesList, x, y)
+            # Drawing after final arrival time
+
+            for i in range(numberProcesses):
+                if newBurstList[i] > 0:
+                    self.draw(newProcessesList[i], last_x, last_x + newBurstList[i])
+                    last_x = last_x + newBurstList[i]
+                    index_of_sepec_process = processesNames.index(newProcessesList[i])
+                    avgWaitingTime.append(last_x - arrivalTime[index_of_sepec_process]
+                                            - burstTime[index_of_sepec_process])
+
+            sumAvgTime = sum(avgWaitingTime) / numberProcesses
+
+        red_patch = mpatches.Patch(label="The Average Waiting Time is: {}".format(sumAvgTime), fill=False)
         plt.legend(handles=[red_patch])
-        plt.show()  # must be at last
+        plt.show()  
 
     def click(self):
-        #try:
-            Number_Of_Processes = int(self.textEdit_3.toPlainText())
+            """Function that connects values obtained by GUI to sorting algorithm."""
+            numberOfProcesses = int(self.textEdit_3.toPlainText())
             value_of_textedit_2 = self.textEdit_2.toPlainText()
-            Arrival_Time_List = value_of_textedit_2.splitlines()
-            
-
+            arrivalTime = value_of_textedit_2.splitlines()
             value_of_textedit = self.textEdit.toPlainText()
-            Burst_Time_List = value_of_textedit.splitlines()
-            Processes_Names = []
+            burstTime = value_of_textedit.splitlines()
+            processesNames = []
             i = 0
-            x = 0
-            for i in range(Number_Of_Processes):
-                Arrival_Time_List[i] = float(Arrival_Time_List[i])
-                Burst_Time_List[i] = float(Burst_Time_List[i])
-                Processes_Names.append("p" + str(i + 1))
+
+            for i in range(numberOfProcesses):
+                arrivalTime[i] = float(arrivalTime[i])
+                burstTime[i] = float(burstTime[i])
+                processesNames.append("p" + str(i + 1))
             Preemptive = self.radioButton.isChecked()
             
-            self.sjf(Processes_Names, Burst_Time_List, Arrival_Time_List, Number_Of_Processes, Preemptive)
+            self.sjf(processesNames, burstTime, arrivalTime, numberOfProcesses, Preemptive)
                
-                
-               
-            
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(876, 866)
@@ -364,8 +344,6 @@ class SJF(object):
         self.pushButton.clicked.connect(self.click)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        
-
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -378,6 +356,30 @@ class SJF(object):
         self.pushButton.setText(_translate("MainWindow", "RUN"))
 
 
+class Queue:
+    """Class created to assist the RR algorithm"""
+    def __init__(self,l=None):
+        if(l == None):
+            self.q=[]
+        else:
+            self.q = list(l)
+
+    def __str__(self):
+        return str(self.q)
+    def __repr__(self):
+        return self.q
+
+    def push(self,elem):
+        self.q.append(elem)
+
+    def pop(self):
+        temp = self.q[0]
+        self.q = self.q[1:]
+        return temp
+
+    def empty(self):
+        if(len(self.q) == 0): return 1
+        return 0 
 
 class rr(object):
     """RR scheduler algorithm implementation and GUI."""
@@ -385,22 +387,21 @@ class rr(object):
     def fig_init(self, processes_name, total_burst):
         
         #Declaring a figure
-        self.fig, self.ax = plt.subplots()  # must be global
+        self.fig, self.ax = plt.subplots()  
         self.processes_name= processes_name
+
         #Setting x-axis and y-axis limits
         self.ax.set_ylim(0, len(processes_name))
         self.ax.set_xlim(0, total_burst)
+
         #Labels 
         self.ax.set_ylabel('Processes')
         self.ax.set_xlabel('Time Taken by Each Process')
 
         #Setting y-axis ticks
         ytick = [(i + 1) * 10 for i in range(len(processes_name) + 1)]
-
         self.ax.set_xticks(np.arange(0, total_burst + 1, 1))
         self.ax.set_yticks(ytick)
-        ######self.ax.set_yticklabels(["self.processes_name"," "," "," "])
-        #self.ax.grid(True)
         self.ax.grid(axis='x')
         
     def draw(self, name, start_time, end_time):
@@ -408,65 +409,58 @@ class rr(object):
         name = name.title()
         colors = ['blue','#1f77b4','#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
           '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#1f77b4','#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+          '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', 'blue','#1f77b4','#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+          '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#1f77b4','#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
           '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
-        color = []
-
-        for i in range(0,len(self.processes_name)+1):
-            
-            color = colors[i]
-   
-        # Declearing a bar in the schedule
-        #self.ax.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=('tab:blue'))
         
         self.ax.broken_barh([(start_time, end_time - start_time)], (0,8), facecolors=colors[no])
-        for i in range(0, len(self.processes_name)):
+        for _ in range(0, len(self.processes_name)):
             x = start_time + (end_time-start_time)/2
             y = 4
             s = name[0:]
             self.ax.text(x, y, s=s, ha='center',va='bottom', fontsize =10, fontweight = "bold")
+
         self.ax.spines['left'].set_visible(False)
         self.ax.spines['bottom'].set_visible(False)
         self.ax.spines['top'].set_visible(False)
         self.ax.spines['right'].set_visible(False)
         self.ax.set_axisbelow(True) 
 
-    def Round_Robin(self, Processes_Names, Burst_Time_List, Arrival_Time_List, Number_Of_Processes, quantum):
-        turn_around = [i for i in range(len(Processes_Names))]
-        total = sum(Burst_Time_List) + 10 + max(Arrival_Time_List)
-        self.fig_init(Processes_Names, total)
-        # algorithim
-        # first sort
-        swapped = None
-        for i in range(Number_Of_Processes):
+    def Round_Robin(self, processesNames, burstTime, arrivalTime, numberProcesses, quantum):
+        turnAround = [i for i in range(len(processesNames))]
+        total = sum(burstTime) + 10 + max(arrivalTime)
+        self.fig_init(processesNames, total)
+
+        # first step of sorting 
+        for i in range(numberProcesses):
             swapping = False
-            for j in range(Number_Of_Processes - i - 1):
-                if (Arrival_Time_List[j] > Arrival_Time_List[j + 1]):
-                    Arrival_Time_List[j], Arrival_Time_List[j + 1] = Arrival_Time_List[j + 1], Arrival_Time_List[j]
-                    Processes_Names[j], Processes_Names[j + 1] = Processes_Names[j + 1], Processes_Names[j]
-                    Burst_Time_List[j], Burst_Time_List[j + 1] = Burst_Time_List[j + 1], Burst_Time_List[j]
+            for j in range(numberProcesses - i - 1):
+                if (arrivalTime[j] > arrivalTime[j + 1]):
+                    arrivalTime[j], arrivalTime[j + 1] = arrivalTime[j + 1], arrivalTime[j]
+                    processesNames[j], processesNames[j + 1] = processesNames[j + 1], processesNames[j]
+                    burstTime[j], burstTime[j + 1] = burstTime[j + 1], burstTime[j]
                     swapping = True
-                elif (Arrival_Time_List[j] == Arrival_Time_List[j + 1]):
-                    if (int(Processes_Names[j][1:]) > int(Processes_Names[j + 1][1:])):
-                        Arrival_Time_List[j], Arrival_Time_List[j + 1] = Arrival_Time_List[j + 1], Arrival_Time_List[j]
-                        Processes_Names[j], Processes_Names[j + 1] = Processes_Names[j + 1], Processes_Names[j]
-                        Burst_Time_List[j], Burst_Time_List[j + 1] = Burst_Time_List[j + 1], Burst_Time_List[j]
+
+                elif (arrivalTime[j] == arrivalTime[j + 1]):
+                    if (int(processesNames[j][1:]) > int(processesNames[j + 1][1:])):
+                        arrivalTime[j], arrivalTime[j + 1] = arrivalTime[j + 1], arrivalTime[j]
+                        processesNames[j], processesNames[j + 1] = processesNames[j + 1], processesNames[j]
+                        burstTime[j], burstTime[j + 1] = burstTime[j + 1], burstTime[j]
                         swapped = True
             if (swapping == False): break
-        ################
-        Burst_Copy = list(Burst_Time_List)
-        #########
+
+        burstCopy = list(burstTime)
         termination =0
         i=0
-
         queue = Queue()
 
-        flag=[0 for i in range (Number_Of_Processes)]
-        first_time=1
-        while(termination < Number_Of_Processes):
-            last_x = Arrival_Time_List[i]
-            queue.push([Processes_Names[i], Burst_Time_List[i]])
+        flag=[0 for i in range (numberProcesses)]
+        firstTime=1
+        while(termination < numberProcesses):
+            last_x = arrivalTime[i]
+            queue.push([processesNames[i], burstTime[i]])
 
-            while( not queue.empty()):
+            while(not queue.empty()):
 
                 temp = queue.pop()
                 if(temp[1] <= quantum):
@@ -474,90 +468,89 @@ class rr(object):
                     self.draw(temp[0] , last_x, last_x +duration )
                     old_x=last_x
                     last_x=last_x+duration
-                    turn_around[ Processes_Names.index(temp[0])] = last_x-Arrival_Time_List[ Processes_Names.index(temp[0])]
+                    turnAround[ processesNames.index(temp[0])] = last_x-arrivalTime[ processesNames.index(temp[0])]
                     termination=termination+1
-                    flag[ Processes_Names.index(temp[0]) ] =1
-                    if (first_time):
-                        for it in range(1, len(Arrival_Time_List)):
-                            if (Arrival_Time_List[it] > last_x): break
-                            if (Arrival_Time_List[it] >= old_x and Arrival_Time_List[it] <= last_x and temp[0] !=
-                                    Processes_Names[it]):
+                    flag[ processesNames.index(temp[0]) ] =1
+                    if (firstTime):
+                        for it in range(1, len(arrivalTime)):
+                            if (arrivalTime[it] > last_x): 
+                                break
+                            if (arrivalTime[it] >= old_x and arrivalTime[it] <= last_x and temp[0] !=
+                                    processesNames[it]):
                                 queue.push(
-                                    [Processes_Names[it], Burst_Time_List[it]])
+                                    [processesNames[it], burstTime[it]])
                     else:
-                        for it in range(len(Arrival_Time_List)):
-                            if (Arrival_Time_List[it] > last_x): break
-                            if (Arrival_Time_List[it] > old_x and Arrival_Time_List[it] <= last_x and temp[0] !=
-                                    Processes_Names[it]):
+                        for it in range(len(arrivalTime)):
+                            if (arrivalTime[it] > last_x): 
+                                break
+                            if (arrivalTime[it] > old_x and arrivalTime[it] <= last_x and temp[0] !=
+                                    processesNames[it]):
                                 queue.push(
-                                    [Processes_Names[it], Burst_Time_List[it]])
-
+                                    [processesNames[it], burstTime[it]])
 
                 else:
-                    duration=quantum
+                    duration = quantum
                     self.draw(temp[0] , last_x, last_x +duration)
                     old_x=last_x
                     last_x=last_x+duration
                     temp[1] = temp[1]-quantum
 
-                    if (first_time):
-                        for it in range(1,len(Arrival_Time_List)):
-                            if (Arrival_Time_List[it] > last_x): break
-                            if (Arrival_Time_List[it] >= old_x and Arrival_Time_List[it] <= last_x and temp[0] != Processes_Names[it]):
+                    if (firstTime):
+                        for it in range(1,len(arrivalTime)):
+                            if (arrivalTime[it] > last_x): break
+                            if (arrivalTime[it] >= old_x and arrivalTime[it] <= last_x and temp[0] != processesNames[it]):
                                 queue.push(
-                                    [Processes_Names[it], Burst_Time_List[it]])
+                                    [processesNames[it], burstTime[it]])
                     else:
-                        for it in range(len(Arrival_Time_List)):
-                            if (Arrival_Time_List[it] > last_x): break
-                            if (Arrival_Time_List[it] > old_x and Arrival_Time_List[it] <= last_x and temp[0] != Processes_Names[it]):
+                        for it in range(len(arrivalTime)):
+                            if (arrivalTime[it] > last_x): 
+                                break
+                            if (arrivalTime[it] > old_x and arrivalTime[it] <= last_x and temp[0] != processesNames[it]):
                                 queue.push(
-                                    [Processes_Names[it], Burst_Time_List[it]])
+                                    [processesNames[it], burstTime[it]])
 
                     queue.push(temp)
-                    first_time = 0
+                    firstTime = 0
 
-            ##if queue is empty
-            if (termination == Number_Of_Processes): break
+            # If the queue is empty
+            if (termination == numberProcesses): 
+                break
             else:
-                for f in range(Number_Of_Processes):
+                for f in range(numberProcesses):
                     if(flag[f] == 0):
                         i=f
-                        break;
-
+                        break
 
         waiting = []
-        for i in range(len(Processes_Names)):
-            waiting.append(turn_around[i] - Burst_Copy[i])
+        for i in range(len(processesNames)):
+            waiting.append(turnAround[i] - burstCopy[i])
 
-        average_waiting = sum(waiting) / len(waiting)  ##put it in message box
+        avgWaitingTime = sum(waiting) / len(waiting) 
 
-        red_patch = mpatches.Patch(label="The Average Waiting Time is: {}".format(average_waiting), fill=False)
+        red_patch = mpatches.Patch(label="The Average Waiting Time is: {}".format(avgWaitingTime), fill=False)
         plt.legend(handles=[red_patch])
         plt.show()
 
     def click(self):
-       # try:
-            Number_Of_Processes = int(self.textEdit_4.toPlainText())
+        
+            numberProcesses = int(self.textEdit_4.toPlainText())
 
             value_of_textedit_2 = self.textEdit_2.toPlainText()
-            Arrival_Time_List = value_of_textedit_2.splitlines()
+            arrivalTime = value_of_textedit_2.splitlines()
 
             value_of_textedit_3 = self.textEdit_3.toPlainText()
-            Burst_Time_List = value_of_textedit_3.splitlines()
+            burstTime = value_of_textedit_3.splitlines()
 
             quantum = float(self.textEdit_5.toPlainText())
-            Processes_Names = []
+            processesNames = []
             i = 0
-            x = 0
-            for i in range(Number_Of_Processes):
-                 Arrival_Time_List[i] = float(Arrival_Time_List[i])
-                 Burst_Time_List[i] = float(Burst_Time_List[i])
-                 Processes_Names.append("p" + str(i + 1))
-            self.Round_Robin(Processes_Names, Burst_Time_List, Arrival_Time_List, Number_Of_Processes, quantum)
+            for i in range(numberProcesses):
+                 arrivalTime[i] = float(arrivalTime[i])
+                 burstTime[i] = float(burstTime[i])
+                 processesNames.append("p" + str(i + 1))
+            self.Round_Robin(processesNames, burstTime, arrivalTime, numberProcesses, quantum)
                 
                 
-            
-            
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(828, 900)
@@ -641,12 +634,12 @@ class rr(object):
 
 class FCFS(object):
     """FCFS scheduler algorithm implementation and GUI."""
-    
     def fig_init(self, processes_name, total_burst):
         
         #Declaring a figure
         self.fig, self.ax = plt.subplots()  # must be global
         self.processes_name= processes_name
+
         #Setting x-axis and y-axis limits
         self.ax.set_ylim(0, len(processes_name))
         self.ax.set_xlim(0, total_burst)
