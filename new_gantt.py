@@ -875,11 +875,11 @@ class priority(object):
         #self.ax.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=('tab:blue'))
         
         self.ax.broken_barh([(start_time, end_time - start_time)], (0,8), facecolors=colors[no])
-        for i in range(0, len(self.processes_name)):
-            x = start_time + (end_time-start_time)/2
-            y = 4
-            s = name[0:]
-            self.ax.text(x, y, s=s, ha='center',va='bottom', fontsize =10, fontweight = "bold")
+        #for i in range(0, len(self.processes_name)):
+         #   x = start_time + (end_time-start_time)/2
+         #   y = 4
+        s = name[0:]
+        self.ax.text(start_time + (end_time-start_time)/2, 4, s=s, ha='center',va='bottom', fontsize =10, fontweight = "bold")
         self.ax.spines['left'].set_visible(False)
         self.ax.spines['bottom'].set_visible(False)
         self.ax.spines['top'].set_visible(False)
