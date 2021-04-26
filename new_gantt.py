@@ -383,33 +383,52 @@ class rr(object):
     """RR scheduler algorithm implementation and GUI."""
         
     def fig_init(self, processes_name, total_burst):
-        self.fig, self.gnt = plt.subplots()  # must be global
-        self.processes_name = processes_name
-        self.gnt.set_ylim(0, len(processes_name))
-        self.gnt.set_xlim(0, total_burst)
-        self.gnt.set_ylabel('Processes')
-        self.gnt.set_xlabel('Time Taken By Each Process')
+        
+        #Declaring a figure
+        self.fig, self.ax = plt.subplots()  # must be global
+        self.processes_name= processes_name
+        #Setting x-axis and y-axis limits
+        self.ax.set_ylim(0, len(processes_name))
+        self.ax.set_xlim(0, total_burst)
+        #Labels 
+        self.ax.set_ylabel('Processes')
+        self.ax.set_xlabel('Time Taken by Each Process')
 
+        #Setting y-axis ticks
         ytick = [(i + 1) * 10 for i in range(len(processes_name) + 1)]
 
-        self.gnt.set_xticks(np.arange(0, total_burst + 1, 1))
-        self.gnt.set_yticks(ytick)
-        #self.gnt.set_yticklabels(processes_name)
-        self.gnt.grid(True)
-
+        self.ax.set_xticks(np.arange(0, total_burst + 1, 1))
+        self.ax.set_yticks(ytick)
+        ######self.ax.set_yticklabels(["self.processes_name"," "," "," "])
+        #self.ax.grid(True)
+        self.ax.grid(axis='x')
+        
     def draw(self, name, start_time, end_time):
         no = int(name[1:])
-        colors = [ 'red','green','blue','#1f77b4','#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+        name = name.title()
+        colors = ['blue','#1f77b4','#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
           '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#1f77b4','#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
           '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
         color = []
 
-        for i in range(0,len(self.processes_name)):
+        for i in range(0,len(self.processes_name)+1):
             
             color = colors[i]
-        #self.gnt.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=colors[no])
-
-        self.gnt.broken_barh([(start_time, end_time - start_time)], (0,5), facecolors=colors[no])
+   
+        # Declearing a bar in the schedule
+        #self.ax.broken_barh([(start_time, end_time - start_time)], ((no * 10) - 4, 7), facecolors=('tab:blue'))
+        
+        self.ax.broken_barh([(start_time, end_time - start_time)], (0,8), facecolors=colors[no])
+        for i in range(0, len(self.processes_name)):
+            x = start_time + (end_time-start_time)/2
+            y = 4
+            s = name[0:]
+            self.ax.text(x, y, s=s, ha='center',va='bottom', fontsize =10, fontweight = "bold")
+        self.ax.spines['left'].set_visible(False)
+        self.ax.spines['bottom'].set_visible(False)
+        self.ax.spines['top'].set_visible(False)
+        self.ax.spines['right'].set_visible(False)
+        self.ax.set_axisbelow(True) 
 
     def Round_Robin(self, Processes_Names, Burst_Time_List, Arrival_Time_List, Number_Of_Processes, quantum):
         turn_around = [i for i in range(len(Processes_Names))]
@@ -861,7 +880,6 @@ class priority(object):
             y = 4
             s = name[0:]
             self.ax.text(x, y, s=s, ha='center',va='bottom', fontsize =10, fontweight = "bold")
-            
         self.ax.spines['left'].set_visible(False)
         self.ax.spines['bottom'].set_visible(False)
         self.ax.spines['top'].set_visible(False)
